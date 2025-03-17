@@ -1,0 +1,1966 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaked.db | Home</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --primary-bg: #0a0a0b;
+            --nav-bg: rgba(25, 25, 25, 0.95);
+            --text-primary: #ffffff;
+            --text-secondary: #9b9c9d;
+            --accent-primary: #861d75;
+            --accent-secondary: #3f1d39;
+            --button-primary: #dd17a2;
+            --button-hover: #59335a;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glow-primary: rgba(242, 88, 242, 0.2);
+            --glow-secondary: rgba(206, 19, 134, 0.603);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            margin: 16px auto;
+            border: 1px solid var(--border-color);
+            position: fixed;
+            width: calc(100% - 48px);
+            max-width: 1400px;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .button {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .button-primary {
+            background: var(--button-primary);
+            color: var(--primary-bg);
+            border: none;
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+        }
+
+        .button-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 255, 255, 0.15);
+        }
+
+        .button-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .button-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .navbar.scrolled {
+            background: rgba(15, 15, 15, 0.95);
+            padding: 12px 24px;
+            border-radius: 16px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 22px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: -0.5px;
+        }
+
+        .logo:hover {
+            transform: translateY(-1px);
+            color: var(--accent-primary);
+        }
+
+        .logo svg {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover svg {
+            transform: rotate(90deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            margin-left: 60px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--accent-primary);
+            transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .header-container {
+            position: relative;
+            padding-top: 80px;
+            background: linear-gradient(to bottom,
+                    rgba(116, 182, 155, 0.05),
+                    transparent 50%,
+                    rgba(122, 38, 38, 0.05));
+        }
+
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .header-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(var(--border-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: top;
+            animation: gridFlow 20s linear infinite;
+        }
+
+        @keyframes gridFlow {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 0 50px;
+            }
+        }
+
+        .hero {
+            padding: 180px 48px 120px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(112, 17, 156, 0.1);
+            color: var(--accent-primary);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            border: 1px solid rgba(136, 32, 89, 0.2);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--glow-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px var(--glow-primary);
+        }
+
+        .badge svg {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #ffffff 0%, #4c154e 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 8s ease infinite;
+            letter-spacing: -1.5px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            max-width: 650px;
+            line-height: 1.6;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+        }
+
+
+        .dashboard-preview {
+            margin-top: 80px;
+            border-radius: 32px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            position: relative;
+            width: 120%;
+            z-index: 2;
+            background: var(--card-bg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+                0 0 40px var(--glow-primary),
+                0 0 80px var(--glow-secondary);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: perspective(1000px) rotateX(5deg);
+            margin-bottom: 100px;
+        }
+
+        .dashboard-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0.1) 0%,
+                    transparent 5%,
+                    transparent 95%,
+                    rgba(255, 255, 255, 0.1) 100%),
+                linear-gradient(to right,
+                    rgba(0, 0, 0, 0.2) 0%,
+                    transparent 5%,
+                    transparent 95%,
+                    rgba(0, 0, 0, 0.2) 100%);
+            z-index: 3;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .dashboard-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 48px;
+            padding: 40px;
+            background: var(--card-bg);
+            filter: drop-shadow(0 0 20px rgba(88, 88, 88, 0.1));
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            max-width: fit-content;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 10px rgba(63, 63, 63, 0.2),
+                0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg,
+                    transparent,
+                    var(--accent-primary),
+                    transparent);
+            opacity: 0.1;
+        }
+
+        .stats:hover {
+            transform: translateY(-4px);
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2),
+                0 0 30px var(--glow-primary);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            padding: 0 24px;
+            width: 220px;
+            text-align: center;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -24px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(180deg,
+                    transparent,
+                    var(--border-color),
+                    transparent);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, #ffffff, #681b5e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+            padding: 0 20px;
+            width: 100%;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 15px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            text-transform: uppercase;
+            width: 100%;
+            white-space: nowrap;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .blob-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--accent-primary);
+            left: -200px;
+            top: -100px;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent-secondary);
+            right: -100px;
+            top: -150px;
+            animation-delay: -5s;
+        }
+
+        .blob-3 {
+            width: 400px;
+            height: 400px;
+            background: #3e3a48;
+            left: 30%;
+            top: 0;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(30px) scale(1.02);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .features {
+            padding: 120px 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 64px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2),
+                0 0 20px var(--glow-primary);
+            border-color: var(--accent-primary);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(88, 101, 242, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            color: var(--accent-primary);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: var(--accent-primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .feature-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff, #681b5e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .footer {
+            background: linear-gradient(to top, var(--primary-bg), transparent);
+            padding: 80px 48px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 64px;
+            padding-bottom: 64px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            max-width: 320px;
+            line-height: 1.6;
+        }
+
+        .footer-links h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary);
+            transform: translateX(4px);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-links a {
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .features {
+            padding: 120px 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 64px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2),
+                0 0 20px var(--glow-primary);
+            border-color: var(--accent-primary);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(88, 101, 242, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            color: var(--accent-primary);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: var(--accent-primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .feature-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff, #681b5e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .footer {
+            background: linear-gradient(to top, var(--primary-bg), transparent);
+            padding: 80px 48px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 64px;
+            padding-bottom: 64px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            max-width: 320px;
+            line-height: 1.6;
+        }
+
+        .footer-links h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary);
+            transform: translateX(4px);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-links a {
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .features {
+                padding: 80px 24px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .footer {
+                padding: 60px 24px 32px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 16px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-button {
+                display: block;
+            }
+
+            .hero {
+                padding: 120px 24px 40px;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 24px;
+                padding: 24px;
+            }
+
+            .stat-item:not(:last-child)::after {
+                display: none;
+            }
+
+            .dashboard-preview {
+                width: 100%;
+                margin-top: 40px;
+                transform: none;
+            }
+
+            .dashboard-preview:hover {
+                transform: translateY(-8px);
+            }
+
+            .button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .nav-auth .button-secondary {
+                display: none;
+            }
+        }
+
+        .testimonials {
+            padding: 120px 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 64px;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2),
+                0 0 20px var(--glow-primary);
+            border-color: var(--accent-primary);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-primary);
+        }
+
+        .testimonial-info h4 {
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .testimonial-info p {
+            color: var(--accent-primary);
+            font-size: 14px;
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 4px;
+            color: #ffd700;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-text {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .testimonials {
+                padding: 80px 24px;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background: var(--nav-bg);
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid var(--border-color);
+            position: relative;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .modal-header svg {
+            width: 32px;
+            height: 32px;
+            color: #681b5e;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .modal-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+
+
+        .modal-button {
+            width: 100%;
+            padding: 16px;
+            background: #681b5e;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .modal-button:hover {
+            background: #681b5e;
+            transform: translateY(-2px);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+            transform: rotate(90deg);
+        }
+
+        .modal-discord .modal-header svg {
+            color: #681b5e !important;
+        }
+
+        .modal-discord .modal-button {
+            background: #681b5e;
+        }
+
+        .modal-discord .modal-button:hover {
+            background: #681b5e;
+        }
+
+        .pricing {
+            padding: 120px 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-top: 64px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            align-items: end;
+        }
+
+        .pricing-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            height: fit-content;
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(to bottom, rgba(88, 101, 242, 0.1), var(--card-bg));
+            border-color: var(--accent-primary);
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(62, 13, 66, 0.15),
+                0 0 80px rgba(62, 13, 66, 0.15),
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .pricing-card.featured:hover {
+            transform: translateY(-8px) scale(1.05);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px var(--glow-primary);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pricing-badge svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .pricing-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff, #681b5e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .currency {
+            font-size: 24px;
+            font-weight: 600;
+            margin-right: 4px;
+        }
+
+        .period {
+            font-size: 16px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-secondary);
+        }
+
+        .pricing-features li svg {
+            color: var(--accent-primary);
+            flex-shrink: 0;
+        }
+
+        .pricing-button {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-button:disabled {
+            background: var(--border-color);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .pricing-button:not(:disabled):hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: clamp(2rem, 4vw, 3.5rem);
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-preview {
+                width: 100%;
+                transform: none;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 48px;
+            }
+
+            .stats {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .stat-item {
+                width: 180px;
+            }
+
+            .stat-item:not(:last-child)::after {
+                display: none;
+            }
+        }
+
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 16px;
+                margin: 12px;
+                width: calc(100% - 24px);
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                height: 100vh;
+                width: 80%;
+                max-width: 300px;
+                background: var(--nav-bg);
+                flex-direction: column;
+                padding: 80px 24px;
+                gap: 24px;
+                transition: left 0.3s ease;
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-auth {
+                gap: 8px;
+            }
+
+            .button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+
+            .hero {
+                padding: 120px 24px 60px;
+            }
+
+            .hero-content {
+                text-align: center;
+            }
+
+            .badge {
+                font-size: 12px;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+
+            .stats {
+                padding: 24px;
+                gap: 32px;
+            }
+
+            .stat-number {
+                font-size: 32px;
+            }
+
+            .stat-label {
+                font-size: 14px;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-8px);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+                letter-spacing: -1px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .features-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card,
+            .testimonial-card {
+                padding: 24px;
+            }
+
+            .footer {
+                padding: 60px 24px 32px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .modal {
+                padding: 24px;
+                margin: 16px;
+            }
+
+            .modal-title {
+                font-size: 20px;
+            }
+
+            .dashboard-preview {
+                margin-top: 40px;
+                border-radius: 16px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .navbar {
+                padding: 8px 12px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .logo svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .button {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                font-size: clamp(1.5rem, 3vw, 2rem);
+            }
+
+            .stats {
+                padding: 16px;
+            }
+
+            .stat-item {
+                width: 140px;
+            }
+
+            .stat-number {
+                font-size: 28px;
+            }
+
+            .stat-label {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-height: 700px) {
+            .hero {
+                padding-top: 100px;
+            }
+
+            .dashboard-preview {
+                margin-top: 40px;
+                margin-bottom: 60px;
+            }
+        }
+
+
+        @media (prefers-color-scheme: dark) {
+
+            .modal,
+            .nav-links {
+                background: rgba(15, 15, 15, 0.95);
+            }
+        }
+
+        @media (prefers-contrast: high) {
+            :root {
+                --text-secondary: #ffffff;
+                --border-color: rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        .download-button {
+            margin-top: 20px;
+            padding: 12px 16px;
+            background: var(--button-primary);
+            color: var(--primary-bg);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .download-button:hover {
+            background: var(--button-hover);
+            box-shadow: 0 0 8px var(--glow-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 8v8M8 12h8"></path>
+            </svg>
+            Leaked.DB
+        </a>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#pricing-grid">Pricing</a>
+            <a href="https://discord.gg/YnDgzYsNz2" target="_blank">Help</a>
+        </div>
+        <div class="nav-auth">
+            <a href="login.html" class="button button-secondary">Login</a>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <div class="hero-content">
+            <div class="badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                    </path>
+                </svg>
+                <span style="margin-left: 8px;">The Library Of Leaked Database's</span>
+            </div>
+
+            <h1>The Home Of Database's</h1>
+            <p>Take control Of Anything<br> Welcome To The Home Of Database's Always Being Updated With New Databases</p>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="57">0</span>
+                    <span class="stat-label">Active Users</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="30393922">0</span>
+                    <span class="stat-label">Data leaked</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="51">0</span>
+                    <span class="stat-label">Vouches</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-preview">
+            <img src="images/dash.png">
+            <div class="bottom-blobs">
+                <div class="bottom-blob bottom-blob-1"></div>
+                <div class="bottom-blob bottom-blob-2"></div>
+            </div>
+        </div>
+
+        <div class="blob-container">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+    </main>
+
+    <section class="features" id="features">
+        <div class="section-header" style="text-align: center;">
+            <div class="badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                    </path>
+                </svg>
+                <span>Powerful Features</span>
+            </div>
+            <h2 style="font-size: 3rem; margin: 24px 0;">Everything You Need</h2>
+            <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">Generate detailed OSINT reports
+                in under an hour with our advanced API.
+            </p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                        <path d="M21 15l-5-5L5 21"></path>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Clean Results</h3>
+                <p class="feature-description">Get well-structured data with a clear and organized layout.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 11.08V8l-6-6H6a2 2 0 00-2 2v16c0 1.1.9 2 2 2h12a2 2 0 002-2v-3.08"></path>
+                        <path d="M14 3v5h5M18 21v-6M15 18h6"></path>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Analytics</h3>
+                <p class="feature-description">Track and Analyze OSINT Data with Precision.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Easy Setup</h3>
+                <p class="feature-description">Set up in minutes with our easy-to-use dashboard.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="testimonials">
+        <div class="section-header" style="text-align: center;">
+            <div class="badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                    </path>
+                </svg>
+                <span>Testimonials</span>
+            </div>
+            <h2 style="font-size: 3rem; margin: 24px 0;">What Our Users Say</h2>
+            <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">Join users who have enhanced
+                their OSINT lookups with Exposint.</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="images/c8532f16a050129f200c3e2aa87c1313.png" class="testimonial-avatar">
+                    <div class="testimonial-info">
+                        <h4>" Zed</h4>
+                        <p>@.zed69_
+                        </p>
+                    </div>
+                </div>
+                <div class="testimonial-stars">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                        </path>
+                    </svg>
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                        </path>
+                    </svg>
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                        </path>
+                    </svg>
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                        </path>
+                    </svg>
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                        </path>
+                    </svg>
+                </div>
+                <p class="testimonial-text">"+rep perfect everything works and support is perfect"</p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="images/1823387ad1e4ff31022ff2c92a216815.png" class="testimonial-avatar">
+                    <div class="testimonial-info">
+                        <h4>!</h4>
+                        <p>@yng.gddf</p>
+                    </div>
+                </div>
+                <div class="testimonial-stars">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                        </path>
+                    </svg>
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                        </path>
+                    </svg>
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                        </path>
+                    </svg>
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                        </path>
+                    </svg>
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                        </path>
+                    </svg>
+                </div>
+                <p class="testimonial-text">"+vouch impressed with the amount of results that came in"</p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="images/2be3c2538454acfb33265eebc1fafc74.png" class="testimonial-avatar">
+                    <div class="testimonial-info">
+                        <h4>fed</h4>
+                        <p>@zoelones</p>
+                    </div>
+                </div>
+                <div class="testimonial-stars">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                        </path>
+                    </svg>
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                        </path>
+                    </svg>
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                        </path>
+                    </svg>
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                        </path>
+                    </svg>
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                        </path>
+                    </svg>
+                </div>
+                <p class="testimonial-text">"This is if not one the beat apis for ethical use. It provides its users
+                    with a variety of different options to choose from, it's also user friendly which makes it really
+                    good for everyday use. I vouch this tool as it is really cheap and cool."</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing-grid">
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3>Basic - Day</h3>
+                    <div class="price">
+                        <span class="currency">$</span>
+                        <span class="amount">3</span>
+                        <span class="period">/day</span>
+                    </div>
+                </div>
+                <ul class="pricing-features">
+                    <li>Discord Intel</li>
+                    <li>GitHub Intel</li>
+                    <li>Database Lookups</li>
+                </ul>
+                <a href="https://discord.gg/YnDgzYsNz2" class="pricing-button">Get Started</a>
+            </div>
+
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3>Basic - Week</h3>
+                    <div class="price">
+                        <span class="currency">$</span>
+                        <span class="amount">7</span>
+                        <span class="period">/week</span>
+                    </div>
+                </div>
+                <ul class="pricing-features">
+                    <li>Discord Intel</li>
+                    <li>GitHub Intel</li>
+                    <li>Database Lookups</li>
+                </ul>
+                <a href="https://discord.gg/YnDgzYsNz2" class="pricing-button">Get Started</a>
+            </div>
+
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3>Basic - Month</h3>
+                    <div class="price">
+                        <span class="currency">$</span>
+                        <span class="amount">15</span>
+                        <span class="period">/mo</span>
+                    </div>
+                </div>
+                <ul class="pricing-features">
+                    <li>Discord Intel</li>
+                    <li>GitHub Intel</li>
+                    <li>Database Lookups</li>
+                </ul>
+                <a href="https://discord.gg/YnDgzYsNz2" class="pricing-button">Get Started</a>
+            </div>
+
+            <div class="pricing-card featured">
+                <div class="pricing-badge">Popular</div>
+                <div class="pricing-header">
+                    <h3>Premium - Lifetime</h3>
+                    <div class="price">
+                        <span class="currency">$</span>
+                        <span class="amount">35</span>
+                        <span class="period">Lifetime</span>
+                    </div>
+                </div>
+                <ul class="pricing-features">
+                    <li>Everything in Basic And More</li>
+                    <li>Database Lookups</li>
+                    <li>Doxbin Intel</li>
+                </ul>
+                <a href="https://discord.gg/YnDgzYsNz2" class="pricing-button">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 8v8M8 12h8"></path>
+                    </svg>
+                    Leaked.DB
+                </a>
+                <p>The ultimate platform for online intelligence and research.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing-grid">Pricing</a></li>
+                </ul>
+            </div>
+
+
+
+            <div class="footer-bottom">
+                <div class="copyright">© 2025 Leaked.db All rights reserved.</div>
+                <div class="social-links">
+                    <a href="#discord">
+                        <svg width="25" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026 13.83 13.83 0 0 0 1.226-1.963.074.074 0 0 0-.041-.104 13.175 13.175 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+    </div></footer>
+
+    <div class="modal-overlay" id="discordModal">
+        <div class="modal modal-discord">
+            <button class="modal-close" onclick="closeDiscordModal()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"></path>
+                </svg>
+            </button>
+            <div class="modal-header">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026 13.83 13.83 0 0 0 1.226-1.963.074.074 0 0 0-.041-.104 13.175 13.175 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z">
+                    </path>
+                </svg>
+                <h3 class="modal-title">Join Our Discord</h3>
+            </div>
+            <div class="modal-content">
+                Get support, and stay updated with the latest features. Join our Discord community today!
+            </div>
+            <button class="modal-button" onclick="openDiscord()">
+                Join Discord Server
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+        function openDiscordModal() {
+            document.getElementById('discordModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDiscordModal() {
+            document.getElementById('discordModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function openDiscord() {
+            window.open('hhttps://discord.gg/YnDgzYsNz2', '_blank');
+            closeDiscordModal();
+        }
+
+        document.querySelector('.social-links a[href="#discord"]').addEventListener('click', (e) => {
+            e.preventDefault();
+            openDiscordModal();
+        });
+
+        document.getElementById('discordModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('discordModal')) {
+                closeDiscordModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                closeDiscordModal();
+            }
+        });
+        function animateCounter(element, target, duration = 2500) {
+            let start = 0;
+            const startTime = performance.now();
+
+            function easeOutQuart(x) {
+                return 1 - Math.pow(1 - x, 4);
+            }
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                const easedProgress = easeOutQuart(progress);
+                const current = Math.floor(easedProgress * target);
+
+                element.textContent = current.toLocaleString();
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.textContent = target.toLocaleString();
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const stats = entry.target.querySelectorAll('.stat-number');
+                    stats.forEach(stat => {
+                        const target = parseInt(stat.getAttribute('data-target'));
+                        animateCounter(stat, target);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        observer.observe(document.querySelector('.stats'));
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+
+
+
+</body></html>
